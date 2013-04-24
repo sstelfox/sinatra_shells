@@ -1,3 +1,272 @@
 @import "normalize";
 @import "settings";
 @import "foundation";
+
+#vt100 {
+  a { 
+    text-decoration:      none;
+    color:                inherit;
+  }
+
+  a:hover { 
+    text-decoration:      underline;
+  }
+
+  #reconnect {
+    position:             absolute;
+    z-index:              2;
+  }
+
+  #reconnect input { 
+    padding:              1ex;
+    font-weight:          bold;
+    font-size:            x-large;
+  }
+
+  #cursize {
+    background:           #EEEEEE;
+    border:               1px solid black;
+    font-family:          sans-serif;
+    font-size:            large;
+    font-weight:          bold;
+    padding:              1ex;
+    position:             absolute;
+    z-index:              2;
+  }
+
+  pre { 
+    margin:               0px;
+  }
+
+  pre pre {
+    overflow:             hidden;
+  }
+
+  #scrollable {
+    overflow-x:           hidden;
+    overflow-y:           scroll;
+    position:             relative;
+    padding:              1px;
+  }
+
+  #console, #alt_console, #cursor, #lineheight, .hidden pre { 
+    font-family:          "DejaVu Sans Mono", "Everson Mono", FreeMono, "Andale Mono", monospace;
+  }
+
+  #lineheight { 
+    position:             absolute;
+    visibility:           hidden;
+  }
+
+  #cursor {
+    position:             absolute;
+    left:                 0px;
+    top:                  0px;
+    overflow:             hidden;
+    z-index:              1;
+  }
+
+  #cursor.bright {
+    background-color:     black;
+    color:                white;
+  }
+
+  #cursor.dim {
+    visibility:           hidden;
+  }
+
+  #cursor.inactive {
+    border:               1px solid;
+    margin:               -1px;
+  }
+
+  #padding { 
+    visibility:           hidden;
+    width:                1px;
+    height:               0px;
+    overflow:             hidden;
+  }
+
+  .hidden {
+    position:             absolute;
+    top:                  -10000px;
+    left:                 -10000px;
+    width:                0px;
+    height:               0px;
+  }
+
+  #menu { 
+    overflow:             visible;
+    position:             absolute;
+    z-index:              3;
+  }
+
+  #menu .popup {
+    background-color:     #EEEEEE;
+    border:               1px solid black;
+    font-family:          sans-serif;
+    position:             absolute;
+  }
+
+  #menu .popup ul { 
+    list-style-type:      none;
+    padding:              0px;
+    margin:               0px;
+    min-width:            10em;
+  }
+
+  #menu .popup li { 
+    padding:              3px 0.5ex 3px 0.5ex;
+  }
+
+  #menu .popup li.hover {
+    background-color:     #444444;
+    color:                white;
+  }
+
+  #menu .popup li.disabled {
+    color:                #AAAAAA;
+  }
+
+  #menu .popup hr { 
+    margin:               0.5ex 0px 0.5ex 0px;
+  }
+
+  #menu img { 
+    margin-right:         0.5ex;
+    width:                1ex;
+    height:               1ex;
+  }
+
+  #scrollable.inverted { color:            #ffffff;
+    background-color: #000000; }
+
+  #kbd_button { 
+    float:                left;
+    position:             fixed;
+    z-index:              0;
+    visibility:           hidden;
+  }
+
+  #keyboard {
+    z-index:              3;
+    position:             absolute;
+  }
+
+  #keyboard .box {
+    font-family:          sans-serif;
+    background-color:     #cccccc;
+    padding:              .8em;
+    float:                left;
+    position:             absolute;
+    border-radius:        10px;
+    -moz-border-radius:   10px;
+    box-shadow:           4px 4px 6px #222222;
+    -webkit-box-shadow:   4px 4px 6px #222222;
+    /* Don't set the -moz-box-shadow. It doesn't properly scale when CSS
+     * transforms are in effect. Once Firefox supports box-shadow, it should
+     * automatically do the right thing. Until then, leave shadows disabled
+     * for Firefox.
+     */
+  opacity:              0.85;
+  -moz-opacity:         0.85;
+  filter:               alpha(opacity=85);
+  }
+
+  #keyboard .box * {
+    vertical-align:       top;
+    display:              inline-block;
+  }
+
+  #keyboard b, #keyboard i, #keyboard s, #keyboard u {
+    font-style:           normal;
+    font-weight:          bold;
+    border-radius:        5px;
+    -moz-border-radius:   5px;
+    background-color:     #555555;
+    color:                #eeeeee;
+    box-shadow:           2px 2px 3px #222222;
+    -webkit-box-shadow:   2px 2px 3px #222222;
+    padding:              4px;
+    margin:               2px;
+    height:               2ex;
+    display:              inline-block;
+    text-align:           center;
+    text-decoration:      none;
+  }
+
+  #keyboard b, #keyboard s {
+    width:                2ex;
+  }
+
+  #keyboard u, #keyboard s {
+    visibility:           hidden;
+  }
+
+  #keyboard .shifted { 
+    display:              none;
+  }
+
+  #keyboard .selected {
+    color:                #888888;
+    background-color:     #eeeeee;
+    box-shadow:           0px 0px 3px #222222;
+    -webkit-box-shadow:   0px 0px 3px #222222;
+    position:             relative;
+    top:                  1px;
+    left:                 1px;
+  }
+
+  .ansi0               {                            }
+  .ansi1               { color:            #cd0000; }
+  .ansi2               { color:            #00cd00; }
+  .ansi3               { color:            #cdcd00; }
+  .ansi4               { color:            #0000ee; }
+  .ansi5               { color:            #cd00cd; }
+  .ansi6               { color:            #00cdcd; }
+  .ansi7               { color:            #e5e5e5; }
+  .ansi8               { color:            #7f7f7f; }
+  .ansi9               { color:            #ff0000; }
+  .ansi10              { color:            #00ff00; }
+  .ansi11              { color:            #e8e800; }
+  .ansi12              { color:            #5c5cff; }
+  .ansi13              { color:            #ff00ff; }
+  .ansi14              { color:            #00ffff; }
+  .ansi15              { color:            #ffffff; }
+
+  .bgAnsi0             { background-color: #000000; }
+  .bgAnsi1             { background-color: #cd0000; }
+  .bgAnsi2             { background-color: #00cd00; }
+  .bgAnsi3             { background-color: #cdcd00; }
+  .bgAnsi4             { background-color: #0000ee; }
+  .bgAnsi5             { background-color: #cd00cd; }
+  .bgAnsi6             { background-color: #00cdcd; }
+  .bgAnsi7             { background-color: #e5e5e5; }
+  .bgAnsi8             { background-color: #7f7f7f; }
+  .bgAnsi9             { background-color: #ff0000; }
+  .bgAnsi10            { background-color: #00ff00; }
+  .bgAnsi11            { background-color: #e8e800; }
+  .bgAnsi12            { background-color: #5c5cff; }
+  .bgAnsi13            { background-color: #ff00ff; }
+  .bgAnsi14            { background-color: #00ffff; }
+  .bgAnsi15            {                            }
+}
+
+@media print {
+  #vt100 .scrollback {
+    display:            none;
+  }
+
+  #vt100 #reconnect, #vt100 #cursor, #vt100 #menu, #vt100 #kbd_button, #vt100 #keyboard { 
+    visibility:         hidden;
+  }
+
+  #vt100 #scrollable { 
+    overflow:           hidden;
+  }
+
+  #vt100 #console, #vt100 #alt_console { 
+    overflow:           hidden;
+    width:              1000000ex;
+  }
+}
