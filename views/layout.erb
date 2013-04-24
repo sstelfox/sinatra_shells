@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>Default Application</title>
+
+  <link rel="stylesheet" href="/css/app.css" />
+
+  <script src="/js/vendor/custom.modernizr.js"></script>
+</head>
+<body>
+  <!-- Header and Nav -->
+  <nav class="top-bar">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+      <h1><a href="#">Default Application</a></h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+    </ul>
+
+    <% if current_user %>
+      <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="divider"></li>
+        <li class="has-dropdown">
+        <a href="#">Main Item 1</a>
+        <ul class="dropdown">
+          <li><label>Section Name</label></li>
+          <li class="has-dropdown">
+          <a href="#" class="">Has Dropdown, Level 1</a>
+          <ul class="dropdown">
+            <li><a href="#">Dropdown Options</a></li>
+            <li><a href="#">Dropdown Options</a></li>
+            <li><a href="#">Level 2</a></li>
+            <li><a href="#">Subdropdown Option</a></li>
+            <li><a href="#">Subdropdown Option</a></li>
+            <li><a href="#">Subdropdown Option</a></li>
+          </ul>
+          </li>
+          <li><a href="#">Dropdown Option</a></li>
+          <li><a href="#">Dropdown Option</a></li>
+          <li class="divider"></li>
+          <li><label>Section Name</label></li>
+          <li><a href="#">Dropdown Option</a></li>
+          <li><a href="#">Dropdown Option</a></li>
+          <li><a href="#">Dropdown Option</a></li>
+          <li class="divider"></li>
+          <li><a href="#">See all &rarr;</a></li>
+        </ul>
+        </li>
+        <li class="divider"></li>
+        <li><a href="#">Main Item 2</a></li>
+        <li class="divider"></li>
+        <li class="has-dropdown">
+        <a href="#">Account (<%= current_user.username %>)</a>
+        <ul class="dropdown">
+          <li><a href="#">Edit Account</a></li>
+          <li><a href="/logout">Logout</a></li>
+          <li class="divider"></li>
+          <li><a href="#">See all Users &raquo;</a></li>
+        </ul>
+        </li>
+      </ul>
+      </section>
+    <% end %>
+  </nav>
+  <!-- End Header and nav -->
+  
+  <!-- Begin Flash Notices -->
+  <% if flash[:alert] %>
+    <div class="row">
+      <div class="small-12 columns">
+        <div data-alert class="alert-box alert"><%= flash[:alert] %><a href="#" class="close">&times;</a></div>
+      </div>
+    </div>
+  <% end %>
+  <% if flash[:notice] %>
+    <div class="row">
+      <div class="small-12 columns">
+        <div data-alert class="alert-box"><%= flash[:notice] %><a href="#" class="close">&times;</a></div>
+      </div>
+    </div>
+  <% end %>
+  <% if flash[:success] %>
+    <div class="row">
+      <div class="small-12 columns">
+        <div data-alert class="alert-box success"><%= flash[:success] %><a href="#" class="close">&times;</a></div>
+      </div>
+    </div>
+  <% end %>
+  <!-- End Flash Notices -->
+  
+  <%= yield %>
+
+  <footer class="row">
+    <div class="small-12 columns">
+      <hr />
+      <div class="row">
+        <div class="large-6 columns">
+          <p>&copy; 2013 Sam Stelfox. All Rights Reserved.</p>
+        </div>
+        <div class="large-6 columns">
+          <ul class="inline-list right">
+            <li><a href="#">Link 1</a></li>
+            <li><a href="#">Link 2</a></li>
+            <li><a href="#">Link 3</a></li>
+            <li><a href="#">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.write('<script src="' +
+      ('__proto__' in {} ? '/js/vendor/zepto' : '/js/vendor/jquery') + '.js"><\/script>')
+  </script>
+  
+  <script src="js/foundation/foundation.js"></script>
+  <script src="js/foundation/foundation.alerts.js"></script>
+  <script src="js/foundation/foundation.clearing.js"></script>
+  <script src="js/foundation/foundation.cookie.js"></script>
+  <script src="js/foundation/foundation.dropdown.js"></script>
+  <script src="js/foundation/foundation.forms.js"></script>
+  <script src="js/foundation/foundation.joyride.js"></script>
+  <script src="js/foundation/foundation.magellan.js"></script>
+  <script src="js/foundation/foundation.orbit.js"></script>
+  <script src="js/foundation/foundation.placeholder.js"></script>
+  <script src="js/foundation/foundation.reveal.js"></script>
+  <script src="js/foundation/foundation.section.js"></script>
+  <script src="js/foundation/foundation.tooltips.js"></script>
+  <script src="js/foundation/foundation.topbar.js"></script>
+
+  <script>
+    $(document).foundation();
+  </script>
+</body>
+</html>

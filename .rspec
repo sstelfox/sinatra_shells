@@ -1,0 +1,4 @@
+--color
+--format progress
+--drb
+--drb-port 9001
