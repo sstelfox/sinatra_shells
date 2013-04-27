@@ -6,6 +6,7 @@ require 'rubygems'
 require 'json'
 require 'pty'
 
+require 'eventmachine'
 require 'sinatra/base'
 require 'sinatra/namespace'
 require 'sinatra-websocket'
@@ -17,25 +18,38 @@ require 'lib/init_database'
 require 'lib/scss_engine'
 
 class Shell
+  SHELL_INIT_CMD='env PS1="[\u@\h] \w\$ " TERM=xterm-256color COLUMNS=80 LINES=24 sh -i'
+
+  # Cleanup to ensure that our pty dies with this object
   def close
     @read_socket.close
     @write_socket.close
-    Process.waitpid(@pid)
+    Process.wait(@pty_pid)
+  rescue PTY::ChildExited
   end
 
   def initialize(ws)
-    @read_socket, @write_socket, @pid = PTY.spawn('env PS1="[\u@\h] \w\$ " TERM=xterm-256color COLUMNS=80 LINES=24 sh -i')
+    # Our stuff
+    @read_socket, @write_socket, @pty_pid = PTY.spawn(SHELL_INIT_CMD)
     @websocket = ws
+
+    EM.add_periodic_timer(0.2) do
+      begin
+        while output = @read_socket.read_nonblock(1024)
+          websocket.send(output)
+          sleep 0.1
+        end
+      rescue
+      end
+    end
+
+    # The finalizer ensures the sockets are closed and the subprocess has been
+    # waited out before the GC will eat this object.
     ObjectSpace.define_finalizer(self, method(:close))
   end
 
   def send(msg)
     @write_socket.puts(msg)
-    while output = @read_socket.read_nonblock(1024)
-      websocket.send(output)
-      sleep 0.1
-    end
-  rescue
   end
 
   def websocket
