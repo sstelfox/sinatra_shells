@@ -10,7 +10,7 @@ gem 'compass'
 gem 'uglifier'
 gem 'therubyracer'
 
-gem 'unicorn'
+gem 'thin'
 
 gem 'datamapper'
 gem 'dm-sqlite-adapter'
@@ -20,7 +20,5 @@ gem 'scrypt'
 group :development do
   gem 'rake'
   gem 'pry'
-  gem 'guard-process'
-  gem 'rb-inotify'
 end
 
