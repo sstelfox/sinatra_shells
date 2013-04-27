@@ -37,7 +37,7 @@ class Shell
       begin
         while output = @read_socket.read_nonblock(1024)
           websocket.send(output)
-          sleep 0.1
+          sleep 0.05
         end
       rescue
       end
