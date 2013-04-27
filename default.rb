@@ -4,9 +4,11 @@ $:.unshift(base_directory) unless $:.include?(base_directory)
 
 require 'rubygems'
 require 'json'
+require 'pty'
 
 require 'sinatra/base'
 require 'sinatra/namespace'
+require 'sinatra-websocket'
 require 'rack-flash'
 
 require 'lib/core_ext/hash'
@@ -29,9 +31,11 @@ class Shell
 
   def send(msg)
     @write_socket.puts(msg)
-    while IO.select([@read_socket], nil, nil, 0])
-      websocket.send(@read_socket.read_nonblock(1024))
+    while output = @read_socket.read_nonblock(1024)
+      websocket.send(output)
+      sleep 0.1
     end
+  rescue
   end
 
   def websocket
@@ -48,6 +52,7 @@ module Default
     set :public_folder, (self.root + '/public')
 
     set :shells, []
+    disable :protection
 
     configure :development do
       enable :raise_errors
