@@ -1,8 +1,8 @@
 <div class="row">
   <div class="large-8 columns push-2">
-    <div id="vt100"></div>
+    <pre id="vt100"></pre>
     <form id="form">
-      <input type="text" id="input" value="send a message"></input>
+      <input type="text" id="input"/>
     </form>
     <div id="msgs"></div>
   </div>
@@ -11,25 +11,25 @@
 <script type="text/javascript">
   window.onload = function(){
     (function() {
-       var show = function(el) {
-         return function(msg){ el.innerHTML = msg + '<br />' + el.innerHTML; }
-       }(document.getElementById('msgs'));
+      var console_write = function(msg) {
+        var el = $('#vt100')[0];
+        el.innerHTML = el.innerHTML + msg;
+      };
 
-       var ws       = new WebSocket('ws://' + window.location.host + '/shells');
+      var ws       = new WebSocket('ws://' + window.location.host + '/shells');
 
-       ws.onopen    = function()  { show('websocket opened'); };
-       ws.onclose   = function()  { show('websocket closed'); }
-       ws.onmessage = function(m) { show('websocket message: ' +  m.data); };
+      ws.onopen    = function()  { console.log('Websocket opened'); };
+      ws.onclose   = function()  { console.log('Websocket closed'); }
+      ws.onmessage = function(m) { console_write(m.data); };
 
-       var sender = function(f){
-         var input     = document.getElementById('input');
-         input.onclick = function(){ input.value = "" };
-         f.onsubmit    = function(){
-           ws.send(input.value);
-           input.value = "send a message";
-           return false;
-         }
-       }(document.getElementById('form'));
+      var sender = function(f){
+        var input     = document.getElementById('input');
+        f.onsubmit    = function(){
+          ws.send(input.value);
+          input.value = "";
+          return false;
+        }
+      }(document.getElementById('form'));
     })();
   }
 </script>
